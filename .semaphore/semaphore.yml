@@ -1,0 +1,70 @@
+version: v1.0
+name: minitest
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+
+global_job_config:
+  prologue:
+    commands:
+      - checkout
+      - sem-version ruby 3.0.2
+      - sem-version node 16.5
+      - sem-version c 8
+      - sem-service start postgres 12.4
+      - cache restore
+      - bundle config set --local path 'vendor/bundle'
+      - bundle check || bundle install --jobs=4 --retry=3
+      - yarn install
+      - cache store
+      - cp config/database.yml.ci config/database.yml
+      - bundle exec rake db:create db:schema:load --trace
+
+  epilogue:
+    commands:
+      - artifact push job reports
+
+  env_vars:
+    - name: TZ
+      value: "/usr/share/zoneinfo/America/New_York"
+    - name: RAILS_ENV
+      value: "test"
+    - name: RACK_ENV
+      value: "test"
+
+blocks:
+  - name: Checking a few things before running Rails tests
+    task:
+      jobs:
+        - name: Ruby Audit
+          commands:
+            - bundle exec ruby-audit check
+
+        - name: Rubocop
+          commands:
+            - bundle exec rubocop
+
+        - name: Erb lint
+          commands:
+            - bundle exec erblint --lint-all --format compact
+
+        - name: Eslint
+          commands:
+            - curl -s -L "https://raw.githubusercontent.com/bigbinary/fashop/master/.semaphore/commands/run_eslint_on_modified_files.sh" | bash
+
+  - name: Rails Tests
+    task:
+      jobs:
+        - name: Rails Tests
+          commands:
+            - bin/webpack
+            - bundle exec rails test
+            - test-results publish ./reports
+
+after_pipeline:
+  task:
+    jobs:
+      - name: Publish Results
+        commands:
+          - test-results gen-pipeline-report

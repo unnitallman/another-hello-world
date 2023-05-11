@@ -1,0 +1,14 @@
+default: &default
+  adapter: postgresql
+  host: 127.0.0.1
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 10 } %>
+
+development:
+  <<: *default
+  database: fashop_development
+
+test:
+  <<: *default
+  user: postgres
+  database: fashop_test<%= ENV['CIRCLE_NODE_INDEX'] %>

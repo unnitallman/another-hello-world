@@ -1,0 +1,84 @@
+{
+  "engines": {
+    "node": "16.5",
+    "npm": "7.x",
+    "yarn": "1.22.x"
+  },
+  "scripts": {
+    "prepare": "husky install",
+    "sync_with_fashop": "curl -s -L \"https://raw.githubusercontent.com/bigbinary/fashop/master/.scripts/sync_with_fashop.sh\" | bash"
+  },
+  "lint-staged": {
+    "app/**/*.{js,jsx,json}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "{package.json,.eslintrc.js,.prettierrc.js}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    ".eslint-rules/**/*": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "cypress-tests/**/*.{js,jsx,json}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "./**/*.rb": [
+      "bundle exec rubocop -a --force-exclusion"
+    ],
+    "{Gemfile,Rakefile,config.ru}": [
+      "bundle exec rubocop -a --force-exclusion"
+    ],
+    "app/views/**/*.html.erb": [
+      "bundle exec erblint --lint-all --format compact -a"
+    ]
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.16.0",
+    "autoprefixer": "^10.2.5",
+    "eslint": "^8.1.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-cypress": "^2.12.1",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-jam3": "^0.2.3",
+    "eslint-plugin-json": "^3.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-promise": "^5.1.1",
+    "eslint-plugin-react": "^7.26.1",
+    "eslint-plugin-react-hooks": "4.2.1-alpha-13455d26d-20211104",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "husky": "^7.0.2",
+    "lint-staged": "^11.2.3",
+    "postcss": "^8.2.15",
+    "prettier": "^2.4.1",
+    "prettier-plugin-tailwindcss": "^0.1.4",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "@babel/preset-react": "^7.14.5",
+    "@bigbinary/neeto-icons": "^1.8.17",
+    "@bigbinary/neetoui": "^3.2.13",
+    "@rails/webpacker": "5.4.3",
+    "axios": "^0.23.0",
+    "babel-plugin-js-logger": "^1.0.17",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "babel-preset-react": "^6.24.1",
+    "classnames": "^2.3.1",
+    "core-js": "3.18.3",
+    "formik": "^2.2.5",
+    "js-logger": "^1.6.1",
+    "moment": "^2.29.1",
+    "prop-types": "^15.7.2",
+    "ramda": "^0.27.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
+    "react-router-nav-prompt": "^0.4.0",
+    "react-toastify": "8.0.2",
+    "react_ujs": "^2.6.1",
+    "tailwindcss": "^2.1.2",
+    "yup": "^0.31.0"
+  }
+}

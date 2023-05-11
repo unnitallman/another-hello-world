@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>iCarePro DEVICE RECIEPT</title>
+  </head>
+  <body>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <div class="container">
+      <div class="col-md-12">
+        <div class="invoice">
+          <!-- begin invoice-company -->
+          <div class="invoice-company text-inverse f-w-600">
+            <span class="pull-right hidden-print d-print-none">
+              <a href="javascript:;" class="btn btn-sm btn-white m-b-10 p-l-5"><i class="fa fa-file t-plus-1 text-danger fa-fw fa-lg"></i> Export as PDF</a>
+              <a href="javascript:;" onclick="window.print()" class="btn btn-sm btn-white m-b-10 p-l-5"><i class="fa fa-print t-plus-1 fa-fw fa-lg"></i> Print</a>
+            </span>
+            <span class="display-4">
+              <b> iCarePro</b>
+            </span>
+          </div>
+          <hr>
+          <!-- end invoice-company -->
+          <!-- begin invoice-header -->
+          <div class="invoice-header row m-b-5">
+            <div class="invoice-from col-6">
+              <address class="m-t-5 m-b-5">
+                <strong class="text-inverse"><%= @job_sheet.name %></strong><br>
+                <%= @job_sheet.email %><br>
+                <%= @job_sheet.phone %><br>
+              </address>
+            </div>
+            <div class="invoice-date col-6">
+              <small>Device Received On</small>
+              <div class="date text-inverse m-t-5"><%= @job_sheet.created_at.strftime("%B %d, %Y") %></div>
+              <div class="invoice-detail">
+                <span class="lead"><%= @job_sheet.reference_number %></span><br>
+              </div>
+            </div>
+          </div>
+          <!-- end invoice-header -->
+          <!-- begin invoice-content -->
+          <div class="invoice-content">
+            <!-- begin table-responsive -->
+            <div class="table-responsive">
+              <table class="table table-invoice">
+                <thead>
+                  <tr>
+                    <th>
+                      Serial / IMEI Number
+                    </th>
+                    <th>
+                      Problem Reported
+                    </th>
+                    <th>
+                      Accessories Received
+                    </th>
+                    <th>
+                      Condtion of the Device
+                    </th>
+                  </tr>
+
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <%= @job_sheet.device_emei_or_serial_number %>
+                    </td>
+                    <td>
+                      <%= @job_sheet.device_problem_reported %>
+                    </td>
+                    <td>
+                      <%= @job_sheet.device_accessories_received %>
+                    </td>
+                    <td>
+                      <small><%= @job_sheet.device_condition %></small>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- end table-responsive -->
+            <!-- begin invoice-price -->
+
+            <!-- end invoice-price -->
+          </div>
+          <hr>
+
+          <!-- end invoice-content -->
+          <!-- begin invoice-note -->
+          <!-- end invoice-note -->
+          <div class="container text-muted">
+            <b>Terms and Conditions</b>
+            <ol>
+              <li>Customer would be responsible for re-installing all other software programs, data and passwords post-repair.</li>
+              <li>On confirmation of acceptance of repair, we expect the customer to have a backup of all the data. Genius Lounge will not be held</li>
+              <li>While every effort will be made to ensure proper care of your product, Genius Lounge will not be held responsible for any kind of responsible for any kind of data loss.</li>
+              <li>losses occurring due to unforeseen circumstances described as "Act of God”.Accessories are accepted under owners risk and the
+                company is not responsible for the same if not recorded in the Authorisation.</li>
+              <li>Genius Lounge is not Apple Authorised Service Provider, We do only Non Warranty Repairs. All Repairs are carried out by Apple
+                Certified Engineers.</li>
+              <li>In case of chargeable repairs, an estimated tentative cost is derived based on initial customer input. Actual cost of the repair will
+                be informed to the customer through phone / mail after detailed diagnosis.</li>
+              <li>Genius Lounge will not be responsible for returning the product in the same condition as received from the customer, if the quote
+                provided by Genius Lounge is rejected by the customer.</li>
+              <li>If any Potential issues happened during the repair, Genius Lounge might not be able to deliver your device in the same condition
+                as we received.</li>
+              <li>No guarantee/warranty on changed display.</li>
+
+            </ol>
+            <hr>
+
+            <div class="invoice-note m-b-5 m-t-5">
+              <p>I have read and understood the terms and conditions and agree to abide by the same. I hereby authorise
+                Genius Lounge for repair of my product</p>
+              <div>
+                <p class="border">
+                  <dl class="row">
+                    <dt class="col-sm-3">Customer's Name</dt>
+                    <dd class="col-sm-9"><%= @job_sheet.name %></dd>
+
+                    <dt class="col-sm-3">Date</dt>
+                    <dd class="col-sm-9"><%= Time.zone.today.strftime("%B %d, %Y") %></dd>
+                    <dt class="col-sm-3">Signature</dt>
+                    <dd class="col-sm-9"></dd>
+
+                  </dl>
+                </p>
+              </div>
+            </div>
+          </div>
+          <hr>
+
+          <!-- begin invoice-footer -->
+
+          <div class="invoice-footer fixed-bottom">
+
+            <p class="text-center m-b-5 f-w-600">
+              WORKING HOURS : MON - SAT 10:30AM TO 8:00 PM
+            </p>
+            <p class="text-center">
+              <span class="m-r-10"><i class="fa fa-fw fa-lg fa-globe"></i> https://www.icarepro.in</span>
+              <span class="m-r-10"><i class="fa fa-fw fa-lg fa-phone-volume"></i> T:+91 96058 60600</span>
+              <span class="m-r-10"><i class="fa fa-fw fa-lg fa-envelope"></i> support@icarepro.in</span>
+            </p>
+          </div>
+          <!-- end invoice-footer -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
